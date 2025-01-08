@@ -1,8 +1,8 @@
 package com.example.project;
 
 public class TriangleCollection {
-
-    // array of Triangles
+  
+  // array of Triangles
     private Triangle[] collection;
   
     // Constructor: initialize collection array with the number of
@@ -28,20 +28,38 @@ public class TriangleCollection {
   
     // PRECONDITION: numTriangles >= 2
     public TriangleCollection(int numTriangles, int startX, int startY) {
-      /* IMPLEMENT ME */
+      collection= new Triangle[numTriangles];
+      int thirdVerti= startX-1;
+      for(int i=0;i<numTriangles;i++){
+        thirdVerti--;
+        Point p1= new Point(-startX, 0);
+        Point p2= new Point(0, startY);
+        Point p3= new Point(thirdVerti, 0);
+        Triangle tri= new Triangle(p1, p2, p3);
+        collection[i]=tri;
+      }
     }
   
     // Calculate and return the sum of the perimeters of
     // all Triangles in the collection
     public double totalPerimeter() {
-      /* IMPLEMENT ME */
+      double perim=0;
+      for(Triangle num: collection){
+        perim+=num.perimeter();
+      }
+      return perim;
     }
   
     // adds increment to both the x and y coordinates of each of the
     // three Points in every Triangle in the collections array
     // ADD GETTER AND SETTER METHODS TO OTHER CLASSES AS NECESSARY
     public void shiftTriangles(int increment) {
-      /* IMPLEMENT ME */
+      for(int i= 0; i<collection.length;i++){
+        for(int j=0; j<collection[i].getVertices().length;j++){
+          collection[i].getVertices()[j].setX(collection[i].getVertices()[j].getX()+increment);
+          collection[i].getVertices()[j].setY(collection[i].getVertices()[j].getY()+increment);  
+        }
+      }
     }
   
     // returns a String that contains each Triangle in the 
@@ -53,7 +71,11 @@ public class TriangleCollection {
     //  [(1, 5), (5, 12), (8, 5)]
     //  [(1, 5), (5, 12), (7, 5)]"
     public String triangleCollectionInfo() {
-      /* IMPLEMENT ME */
+      String triInfos= "";
+      for(Triangle tri: collection){
+        triInfos+= tri.triangleInfo()+ "\n";
+      }
+      return triInfos;
     }
   }
   
